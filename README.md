@@ -73,7 +73,7 @@ public class MyClass {
           }
           
       
-     fillOnes(arr,i,j);
+     fillOnes(arr,i,j); //to fill surrounding blocks
      count++;
      
      }
