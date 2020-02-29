@@ -1,2 +1,103 @@
 # MineSweeper-Board-Generator
 Design, minesweeper board for N random blocks using java
+
+#code for MineSweeper Board
+
+import java.util.*;
+
+public class MyClass {
+    
+    public static int offset[]={-1,0,1}; 
+    public static void fillOnes(int arr[][],int i,int j)
+    {
+        
+        for(int r=0;r<offset.length;r++)
+        {
+          
+          for(int c=0;c<offset.length;c++)
+            {
+               int rr=offset[r];
+               int cc=offset[c];
+              
+              if(rr==0 && cc==0)
+               {
+                   arr[i+rr][j+cc]=9;
+                   continue;
+               }
+               
+                if((i+rr>=0&&i+rr<arr.length)&&(j+cc>=0&&j+cc<arr.length))
+               {
+                   if(arr[i+rr][j+cc]!=9)
+                   arr[i+rr][j+cc]+=1;
+               }
+            }
+        }
+    
+    }
+    
+    public static void printBoard(int arr[][])
+    {
+            
+     for(int ii=0;ii<arr.length;ii++)
+     {
+         for(int ij=0;ij<arr.length;ij++)
+         {
+             System.out.print(arr[ii][ij]+" ");
+         }
+         System.out.println();
+     }
+     
+    }
+    
+    public static void main(String args[]) {
+     Scanner input=new Scanner(System.in); 
+     int n=input.nextInt();  //taking input n for creating nxn matrix
+     
+     int arr[][]=new int[n][n];
+     int count=0;
+     
+     int i=(int)(Math.random()*n)+0;  //for random value of bomb
+     int j=(int)(Math.random()*n)+0;
+         fillOnes(arr,i,j);
+     
+     while(count<n+1)  //Creating Minesweeper Board
+     {
+    
+        i=(int)(Math.random()*n)+0;
+        j=(int)(Math.random()*n)+0;
+          
+          while(arr[i][j]==9) //to avoid assigning same position
+          {
+              i=(int)(Math.random()*n)+0;
+              j=(int)(Math.random()*n)+0;
+          }
+          
+      
+     fillOnes(arr,i,j);
+     count++;
+     
+     }
+    
+     printBoard(arr); 
+    }
+
+}
+
+
+ input: 5<br>
+ Output:<br>
+              9 9 9 9 1 <br>
+              9 5 9 3 1 <br>
+              1 2 1 1 0 <br>
+              1 1 1 0 0 <br>
+              1 9 1 0 0 <br>
+
+Explanation: digit significance:<br>
+                   9 : bombs<br>
+                   0 : free Area(no Bomb nearby)<br>
+               (1-8) : present a bomb anywhere near to its adjacent sides<br>
+     
+    //  (1-8) signifies-> position of bomb adjacent to anywhere among following directions: 0   0   0
+    //                           (0 representing position of bomb)                          0 (1-8) 0
+    //                                                                                      0   0   0
+               
